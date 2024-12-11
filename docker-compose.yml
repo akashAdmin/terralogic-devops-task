@@ -1,16 +1,16 @@
-version: '3'
+version: "3"
 services:
   serviceregistry:
-    image: 'msbeigiai/serviceregistry:0.0.1'
+    image: "akashAdmin/serviceregistry:0.0.1"
     container_name: serviceregistry
     ports:
-      - '8761:8761'
-  
+      - "8761:8761"
+
   configserver:
-    image: 'msbeigiai/configserver:0.0.1'
+    image: "akashAdmin/configserver:0.0.1"
     container_name: configserver
     ports:
-      - '9296:9296'
+      - "9296:9296"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://configserver:9296/actuator/health"]
       interval: 15s
@@ -20,12 +20,12 @@ services:
       - serviceregistry
     environment:
       - EUREKA_SERVER_ADDRESS=http://serviceregistry:8761/eureka
-  
+
   cloudgateway:
-    image: 'msbeigiai/cloudgateway:0.0.1'
+    image: "akashAdmin/cloudgateway:0.0.1"
     container_name: cloudgateway
     ports:
-      - '9090:9090'
+      - "9090:9090"
     depends_on:
       configserver:
         condition: service_healthy
